@@ -1,5 +1,5 @@
-$API_KEY="3E...1E"
-$SERVICE_NAME="xxxxx-job-search"
+$API_KEY=$Env:JOB_SEARCH_API_KEY
+$SERVICE_NAME=$Env:JOB_SEARCH_SERVICE_NAME
 
 curl -X POST -H "Content-Type: application/json" -H "api-key:$API_KEY" -d "@nycjobs.schema" -k "https://$SERVICE_NAME.search.windows.net/indexes?api-version=2015-02-28"
 

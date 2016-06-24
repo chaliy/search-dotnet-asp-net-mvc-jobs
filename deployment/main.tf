@@ -22,6 +22,13 @@ resource "azurerm_template_deployment" "jobsearch" {
   deployment_mode = "Incremental"
 }
 
+resource "azurerm_search_service" "jobsearch" {
+    name = "${var.name}-${var.environment}"
+    resource_group_name = "${azurerm_resource_group.jobsearch.name}"
+    location = "${var.region}"
+    sku = "basic"
+}
+
 output "app_name" {
   value = "${azurerm_template_deployment.jobsearch.name}"
 }
