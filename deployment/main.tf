@@ -18,6 +18,9 @@ resource "azurerm_template_deployment" "jobsearch" {
     site_name = "${var.name}-${var.environment}"
     server_farm_name = "${var.name}-${var.environment}-farm"
     region = "${var.region}"
+
+    search_service_api_key = "${var.search_service_api_key}"
+    search_service_name = "${var.name}-${var.environment}"
   }
   deployment_mode = "Incremental"
 }

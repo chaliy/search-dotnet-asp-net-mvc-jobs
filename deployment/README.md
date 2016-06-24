@@ -6,4 +6,4 @@
     SETX ARM_TENANT_ID xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxx
 
     terraform plan
-    terraform apply
+    terraform apply -var "search_service_api_key=$Env:JOB_SEARCH_API_KEY" -var "search_service_name=$Env:JOB_SEARCH_SERVICE_NAME"

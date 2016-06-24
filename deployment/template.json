@@ -13,6 +13,13 @@
         "site_name": {
             "defaultValue": "job-search",
             "type": "String"
+        },
+        "search_service_name": {
+            "defaultValue": "job-search",
+            "type": "String"
+        },
+        "search_service_api_key": {
+            "type": "String"
         }
     },
     "variables": {},
@@ -40,7 +47,43 @@
           },
           "dependsOn": [
               "[resourceId('Microsoft.Web/serverfarms', parameters('server_farm_name'))]"
-          ]
+          ],
+          "resources": [
+           {
+             "apiVersion": "2015-06-01",
+             "name": "web",
+             "type": "config",
+             "dependsOn": [
+               "[resourceId('Microsoft.Web/Sites', parameters('site_name'))]"
+             ],
+             "properties": {
+               "phpVersion": "off",
+               "netFrameworkVersion": "v4.5",
+               "scmType": "LocalGit",
+               "appSettings": [
+                 {
+                   "Name": "JOB_SEARCH_SERVICE_NAME",
+                   "Value": "[parameters('search_service_name')]"
+                 },
+                 {
+                   "Name": "JOB_SEARCH_API_KEY",
+                   "Value": "[parameters('search_service_api_key')]"
+                 }
+               ]
+             }
+           },
+           {
+             "apiVersion": "2015-06-01",
+             "name": "GoLang",
+             "type": "siteextensions",
+             "dependsOn": [
+               "[resourceId('Microsoft.Web/Sites', parameters('site_name'))]",
+               "[resourceId('Microsoft.Web/Sites/config', parameters('site_name'), 'web')]"
+             ],
+             "properties": { }
+           }
+         ]
+
       }
     ]
 }

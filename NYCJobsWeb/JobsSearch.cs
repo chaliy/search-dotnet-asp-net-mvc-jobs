@@ -2,19 +2,16 @@
 using Microsoft.Azure.Search.Models;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
 
 namespace NYCJobsWeb
 {
     public class JobsSearch
     {
-        private static SearchServiceClient _searchClient;
-        private static SearchIndexClient _indexClient;
-        private static string IndexName = "nycjobs";
-        private static SearchIndexClient _indexZipClient;
-        private static string IndexZipCodes = "zipcodes";
+        private static readonly SearchServiceClient _searchClient;
+        private static readonly SearchIndexClient _indexClient;
+        private static readonly string IndexName = "nycjobs";
+        private static readonly SearchIndexClient _indexZipClient;
+        private static readonly string IndexZipCodes = "zipcodes";
 
         public static string errorMessage;
 
@@ -22,9 +19,9 @@ namespace NYCJobsWeb
         {
             try
             {
-                string searchServiceName = ConfigurationManager.AppSettings["SearchServiceName"];
-                string apiKey = ConfigurationManager.AppSettings["SearchServiceApiKey"];
-
+                var searchServiceName = Environment.GetEnvironmentVariable("JOB_SEARCH_SERVICE_NAME");
+                var apiKey = Environment.GetEnvironmentVariable("JOB_SEARCH_API_KEY");
+                
                 // Create an HTTP reference to the catalog index
                 _searchClient = new SearchServiceClient(searchServiceName, new SearchCredentials(apiKey));
                 _indexClient = _searchClient.Indexes.GetClient(IndexName);
@@ -49,7 +46,7 @@ namespace NYCJobsWeb
                     Top = 10,
                     Skip = currentPage - 1,
                     // Limit results
-                    Select = new List<String>() {"id", "agency", "posting_type", "num_of_positions", "business_title", 
+                    Select = new List<String>() {"id", "agency", "posting_type", "num_of_positions", "business_title",
                         "salary_range_from", "salary_range_to", "salary_frequency", "work_location", "job_description",
                         "posting_date", "geo_location", "tags"},
                     // Add count
