@@ -7,6 +7,10 @@
 <script src="~/Scripts/bootstrap-tour-standalone.min.js"></script>
 <link href="~/Content/bootstrap-tour-standalone.min.css" rel="stylesheet" />
 
+<div>
+    @Environment.GetEnvironmentVariable("JOB_SEARCH_SERVICE_NAME")
+</div>
+
 <script>
     $(function () {
         $("#q").autocomplete({

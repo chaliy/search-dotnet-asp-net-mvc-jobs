@@ -7,31 +7,23 @@ namespace NYCJobsWeb
 {
     public class JobsSearch
     {
-        private static readonly SearchServiceClient _searchClient;
-        private static readonly SearchIndexClient _indexClient;
-        private static readonly string IndexName = "nycjobs";
-        private static readonly SearchIndexClient _indexZipClient;
-        private static readonly string IndexZipCodes = "zipcodes";
+        private readonly SearchServiceClient _searchClient;
+        private readonly SearchIndexClient _indexClient;
+        private readonly string IndexName = "nycjobs";
+        private readonly SearchIndexClient _indexZipClient;
+        private readonly string IndexZipCodes = "zipcodes";
 
-        public static string errorMessage;
-
-        static JobsSearch()
+        public JobsSearch()
         {
-            try
-            {
-                var searchServiceName = Environment.GetEnvironmentVariable("JOB_SEARCH_SERVICE_NAME");
-                var apiKey = Environment.GetEnvironmentVariable("JOB_SEARCH_API_KEY");
+            
+            var searchServiceName = Environment.GetEnvironmentVariable("JOB_SEARCH_SERVICE_NAME");
+            var apiKey = Environment.GetEnvironmentVariable("JOB_SEARCH_API_KEY");
                 
-                // Create an HTTP reference to the catalog index
-                _searchClient = new SearchServiceClient(searchServiceName, new SearchCredentials(apiKey));
-                _indexClient = _searchClient.Indexes.GetClient(IndexName);
-                _indexZipClient = _searchClient.Indexes.GetClient(IndexZipCodes);
+            // Create an HTTP reference to the catalog index
+            _searchClient = new SearchServiceClient(searchServiceName, new SearchCredentials(apiKey));
+            _indexClient = _searchClient.Indexes.GetClient(IndexName);
+            _indexZipClient = _searchClient.Indexes.GetClient(IndexZipCodes);
 
-            }
-            catch (Exception e)
-            {
-                errorMessage = e.Message.ToString();
-            }
         }
 
         public DocumentSearchResult Search(string searchText, string businessTitleFacet, string postingTypeFacet, string salaryRangeFacet,
