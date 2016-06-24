@@ -1,0 +1,52 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "server_farm_name": {
+            "defaultValue": "job-search-farm",
+            "type": "String"
+        },
+        "region": {
+            "defaultValue": "West US",
+            "type": "String"
+        },
+        "site_name": {
+            "defaultValue": "job-search",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+      {
+          "type": "Microsoft.Web/serverfarms",
+          "sku": {
+              "name": "S1",
+              "tier": "Standard",
+              "size": "S1",
+              "family": "S",
+              "capacity": 1
+          },
+          "name": "[parameters('server_farm_name')]",
+          "apiVersion": "2015-08-01",
+          "location": "[resourceGroup().location]",
+          "properties": {
+              "name": "[parameters('server_farm_name')]",
+              "numberOfWorkers": 1
+          },
+          "dependsOn": []
+      },
+      {
+          "type": "Microsoft.Web/sites",
+          "name": "[parameters('site_name')]",
+          "apiVersion": "2015-08-01",
+          "location": "[resourceGroup().location]",
+          "properties": {
+              "name": "[parameters('site_name')]",
+              "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('server_farm_name'))]"
+          },
+          "dependsOn": [
+              "[resourceId('Microsoft.Web/serverfarms', parameters('server_farm_name'))]"
+          ]
+      }
+    ]
+}
