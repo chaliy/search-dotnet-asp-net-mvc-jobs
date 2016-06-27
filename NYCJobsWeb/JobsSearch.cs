@@ -9,16 +9,16 @@ namespace NYCJobsWeb
     {
         private readonly SearchServiceClient _searchClient;
         private readonly SearchIndexClient _indexClient;
-        private readonly string IndexName = "nycjobs";
+        private readonly string IndexName = "nurs";
         private readonly SearchIndexClient _indexZipClient;
         private readonly string IndexZipCodes = "zipcodes";
 
         public JobsSearch()
         {
-            
+
             var searchServiceName = Environment.GetEnvironmentVariable("JOB_SEARCH_SERVICE_NAME");
             var apiKey = Environment.GetEnvironmentVariable("JOB_SEARCH_API_KEY");
-                
+
             // Create an HTTP reference to the catalog index
             _searchClient = new SearchServiceClient(searchServiceName, new SearchCredentials(apiKey));
             _indexClient = _searchClient.Indexes.GetClient(IndexName);

@@ -1,0 +1,17 @@
+{
+  "name": "fake",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike Chaliy",
+  "license": "MIT",
+  "dependencies": {
+    "faker": "^3.1.0",
+    "glob": "^7.0.5",
+    "jsonfile": "^2.3.1",
+    "uuid": "^2.0.2"
+  }
+}
