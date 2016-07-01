@@ -102,6 +102,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-tour-standalone.css" />
     <Content Include="Content\bootstrap-tour-standalone.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\flexslider.css" />
@@ -147,6 +148,7 @@
     <Content Include="Images\search.png" />
     <Content Include="Images\title-bg.png" />
     <Content Include="Images\transparent.png" />
+    <Content Include="Scripts\bootstrap-tour-standalone.js" />
     <Content Include="Scripts\bootstrap-tour-standalone.min.js" />
     <Content Include="Scripts\jquery-1.11.0.min.js" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />

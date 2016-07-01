@@ -30,16 +30,14 @@
 
     }
 
-    function CleanText(text)
-    {
-        while (text.indexOf('â€¢') > -1)
-        {
+    function CleanText(text) {
+
+        while (text.indexOf('â€¢') > -1){
             text = text.replace('â€¢', '<br />- ');
         }
 
-        while (text.indexOf(/\n/g) > -1) {
-            text = text.replace(/\n/g, "<br />");
-        }
+        text = text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        text = text.replace(/(?:\t)/g, '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;');
 
         while (text.indexOf('â€™') > -1) {
             text = text.replace('â€™', "'");
@@ -58,7 +56,7 @@
         $("#job_id").html(data.Result.job_id);
         $("#work_location").html(data.Result.work_location);
         $("#business_title").html(data.Result.business_title);
-        $("#civil_service_title").html(data.Result.civil_service_title);
+        $("#full_name").html(data.Result.full_name);
         
 
         var salary = '$' + data.Result.salary_range_from.toLocaleString();
@@ -67,20 +65,16 @@
         salary += ' ' + data.Result.salary_frequency;
         $("#salary").html(salary);
 
-        $("#agency").html(data.Result.agency);
-        $("#division").html(data.Result.division_work_unit);
+        $("#age").html(data.Result.age);
         $("#hours_per_shift").html(data.Result.hours_per_shift);
         $("#level").html(data.Result.level);
-        $("#num_of_positions").html(data.Result.num_of_positions);
         $("#posting_type").html(data.Result.posting_type);
         
-        $("#job_description").html(CleanText(data.Result.job_description));
+        $("#description").html(CleanText(data.Result.description));
 
-        $("#minimum_qual_requirements").html(CleanText(data.Result.minimum_qual_requirements));
-        $("#preferred_skills").html(CleanText(data.Result.preferred_skills));
-        $("#residency_requirement").html(CleanText(data.Result.residency_requirement));
-        $("#to_apply").html(CleanText(data.Result.to_apply));
-
+        $("#skills").html(CleanText(data.Result.skills));
+        $("#additional_skills").html(CleanText(data.Result.additional_skills));
+       
         var postingDate = data.Result.posting_date;
         var date = new Date(parseInt(postingDate.substr(6)));
         $("#dateDiv").html('<div class="date">' + date.getDay() + ' <span>' + monthNames[date.getMonth()] + '</span></div>');
@@ -114,7 +108,7 @@
                         <div class="widget-content">
                             <div id="jobs-single-page-map" style="position:relative;width:300px; height:300px"></div>
 
-                            <h5 class="bottom-line">Job Details</h5>
+                            <h5 class="bottom-line">Details</h5>
 
                             <table>
                                 <tbody>
@@ -134,8 +128,8 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Title</td>
-                                        <td id="civil_service_title">-</td>
+                                        <td>Fulle Name</td>
+                                        <td id="full_name">-</td>
                                     </tr>
 
                                     <tr>
@@ -144,14 +138,10 @@
                                     </tr>
 
                                     <tr>
-                                        <td>Agency</td>
-                                        <td id="agency">-</td>
+                                        <td>Age</td>
+                                        <td id="age">-</td>
                                     </tr>
 
-                                    <tr>
-                                        <td>Division</td>
-                                        <td id="division">-</td>
-                                    </tr>
 
                                     <tr>
                                         <td>Hours / Shift</td>
@@ -161,11 +151,6 @@
                                     <tr>
                                         <td>Level</td>
                                         <td id="level">-</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td># of Positions</td>
-                                        <td id="num_of_positions">-</td>
                                     </tr>
 
                                     <tr>
@@ -198,25 +183,16 @@
                         <li><a href="#" class="btn btn-gray fa fa-star"></a></li>
                     </ul>
 
-                    <div id="job_description">Loading...</div>
+                    <div id="description">Loading...</div>
 
-                    <h5>Minimum Qualifications</h5>
-                    <div id="minimum_qual_requirements"></div>
+                    <h5>Skills</h5>
+                    <div id="skills"></div>
 
-                    <h5>Preferred Skills</h5>
-                    <div id="preferred_skills"></div>
-
-                    <h5>Residency Requirement</h5>
-                    <div id="residency_requirement"></div>
+                    <h5>Additional Skills</h5>
+                    <div id="additional_skills"></div>
 
                     <hr>
 
-                    <div class="clearfix">
-                        <h5>To Apply</h5>
-                        <div id="to_apply"></div>
-                        <br />
-
-                    </div>
                 </div>
 
             </div> <!-- end .page-content -->

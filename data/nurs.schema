@@ -5,35 +5,13 @@
     {
       "name": "id",
       "type": "Edm.String",
-      "searchable": false,
-      "filterable": false,
       "retrievable": true,
-      "sortable": false,
-      "facetable": false,
-      "key": true,
-      "analyzer": null
+      "key": true
     },
     {
       "name": "job_id",
       "type": "Edm.String",
-      "searchable": false,
-      "filterable": false,
-      "retrievable": true,
-      "sortable": false,
-      "facetable": false,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "agency",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "retrievable": true
     },
     {
       "name": "posting_type",
@@ -42,20 +20,32 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
-      "name": "num_of_positions",
+      "name": "full_name",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "sortable": true
+    },
+    {
+      "name": "birthday",
+      "type": "Edm.DateTimeOffset",
+      "searchable": false,
+      "filterable": true,
+      "retrievable": true,
+      "sortable": true
+    },
+    {
+      "name": "age",
       "type": "Edm.Int32",
       "searchable": false,
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "business_title",
@@ -64,31 +54,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "civil_service_title",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "title_code_no",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "level",
@@ -97,9 +63,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "salary_range_from",
@@ -108,9 +72,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "salary_range_to",
@@ -119,9 +81,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "salary_frequency",
@@ -130,9 +90,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "work_location",
@@ -141,23 +99,10 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
-      "name": "division_work_unit",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "job_description",
+      "name": "description",
       "type": "Edm.String",
       "searchable": true,
       "filterable": true,
@@ -168,73 +113,7 @@
       "analyzer": "en.lucene"
     },
     {
-      "name": "minimum_qual_requirements",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": "en.lucene"
-    },
-    {
-      "name": "preferred_skills",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": "en.lucene"
-    },
-    {
-      "name": "additional_information",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": "en.lucene"
-    },
-    {
-      "name": "to_apply",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "hours_per_shift",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "recruitment_contact",
-      "type": "Edm.String",
-      "searchable": true,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "residency_requirement",
+      "name": "skills",
       "type": "Edm.String",
       "searchable": true,
       "filterable": true,
@@ -242,7 +121,18 @@
       "sortable": true,
       "facetable": false,
       "key": false,
-      "analyzer": null
+      "analyzer": "en.lucene"
+    },
+    {
+      "name": "additional_skills",
+      "type": "Edm.String",
+      "searchable": true,
+      "filterable": true,
+      "retrievable": true,
+      "sortable": true,
+      "facetable": false,
+      "key": false,
+      "analyzer": "en.lucene"
     },
     {
       "name": "posting_date",
@@ -251,20 +141,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
-    },
-    {
-      "name": "post_until",
-      "type": "Edm.DateTimeOffset",
-      "searchable": false,
-      "filterable": true,
-      "retrievable": true,
-      "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "posting_updated",
@@ -273,9 +150,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "process_date",
@@ -284,9 +159,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     },
     {
       "name": "geo_location",
@@ -295,9 +168,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": true,
-      "facetable": false,
-      "key": false,
-      "analyzer": null
+      "facetable": false
     },
     {
       "name": "tags",
@@ -306,9 +177,7 @@
       "filterable": true,
       "retrievable": true,
       "sortable": false,
-      "facetable": true,
-      "key": false,
-      "analyzer": null
+      "facetable": true
     }
   ],
   "scoringProfiles": [
@@ -316,8 +185,7 @@
       "name": "jobsScoringFeatured",
       "text": {
         "weights": {
-          "business_title": 3.0,
-          "civil_service_title": 3.0
+          "business_title": 3.0
         }
       },
       "functions": [
@@ -367,7 +235,7 @@
     {
       "name": "sg",
       "searchMode": "analyzingInfixMatching",
-      "sourceFields": [ "agency", "posting_type", "business_title", "civil_service_title", "work_location", "division_work_unit" ]
+      "sourceFields": [ "posting_type", "business_title", "work_location", "description", "skills" ]
     }
   ]
 }

@@ -24,7 +24,7 @@
             {
                 element: "#title",
                 placement: "bottom",
-                title: "Welcome to the Azure Search - Jobs demo website",
+                title: "Welcome to the Seniorlink - Nurses demo website",
                 content: "This is purely a demonstration of Azure Search, meant to show the core capabilities of the search service.  Let's walk through the various capabilities of Azure Search.  To get started, press Next.&nbsp;&nbsp;&nbsp;<a href='http://aka.ms/azsearch' target='_blank'>Learn More about Azure Search</a>"
             },
             {
@@ -61,7 +61,7 @@
                 element: "#jobs-count",
                 placement: "left",
                 title: "Count",
-                content: "Azure Search can return a count of the number of relevant items that match the users search query.&nbsp;&nbsp;&nbsp;<a href='https://msdn.microsoft.com/en-us/library/azure/dn798927.aspx' target='_blank'>Learn More</a>"
+                content: "Site can return a count of the number of relevant items that match the users search query.&nbsp;&nbsp;&nbsp;<a href='https://msdn.microsoft.com/en-us/library/azure/dn798927.aspx' target='_blank'>Learn More</a>"
             },
             {
                 element: "#cmbSortType",
@@ -90,7 +90,7 @@
 </script>
 
 <script type="text/javascript">
-    var businessTitleFacet, postingTypeFacet, salaryRangeFacet, sortType, currentPage, zipCode, maxDistance;
+    var businessTitleFacet, postingTypeFacet, salaryRangeFacet, ageRangeFacet, sortType, currentPage, zipCode, maxDistance;
     var map = null;
     var lat = 40.736224;
     var lon = -73.992511;
@@ -105,6 +105,7 @@
         businessTitleFacet = '';
         postingTypeFacet = '';
         salaryRangeFacet = '';
+        ageRangeFacet = '';
         document.getElementById("q").focus();
         sortType = 'featured';
 
@@ -138,6 +139,7 @@
             businessTitleFacet: businessTitleFacet,
             postingTypeFacet: postingTypeFacet,
             salaryRangeFacet: salaryRangeFacet,
+            ageRangeFacet: ageRangeFacet,
             sortType: sortType,
             lat: map.getCenter().latitude,
             lon: map.getCenter().longitude,
@@ -149,6 +151,7 @@
             UpdateBusinessTitleFacets(data.Facets.business_title);
             UpdatePostingTypeFacets(data.Facets.posting_type);
             UpdateSalaryRangeFacets(data.Facets.salary_range_from);
+            UpdateAgeRangeFacets(data.Facets.age);
             UpdateJobDetails(data);
             UpdatePagination(data.Count);
             UpdateMap(data);
@@ -160,7 +163,7 @@
     function UpdateFilterReset() {
         // This allows users to remove filters
         var htmlString = '';
-        if ((businessTitleFacet != '') || (postingTypeFacet != '') || (salaryRangeFacet |= '')) {
+        if ((businessTitleFacet != '') || (postingTypeFacet != '') || (salaryRangeFacet |= '') || (ageRangeFacet |= '')) {
             htmlString += '<b>Current Filters:</b><br>';
             if (businessTitleFacet != '')
                 htmlString += businessTitleFacet + ' [<a href="javascript:void(0)" onclick="RemoveFacet(\'businessTitleFacet\')">X</a>]<br>';
@@ -168,8 +171,13 @@
                 htmlString += postingTypeFacet + ' [<a href="javascript:void(0)" onclick="RemoveFacet(\'postingTypeFacet\')">X</a>]<br>';
             if (salaryRangeFacet != '') {
                 var lowRange = parseInt(salaryRangeFacet);
-                var highRange = lowRange + 49999;
+                var highRange = lowRange + 9999;
                 htmlString += '$' + lowRange.toLocaleString() + ' - $' + highRange.toLocaleString() + ' [<a href="javascript:void(0)" onclick="RemoveFacet(\'salaryRangeFacet\')">X</a>]<br>';
+            }
+            if (ageRangeFacet != '') {
+                var lowRange = parseInt(ageRangeFacet);
+                var highRange = lowRange + 4;
+                htmlString += '' + lowRange.toLocaleString() + ' - ' + highRange.toLocaleString() + ' [<a href="javascript:void(0)" onclick="RemoveFacet(\'ageRangeFacet\')">X</a>]<br>';
             }
         }
         $("#filterReset").html(htmlString);
@@ -183,6 +191,8 @@
             postingTypeFacet = '';
         if (facet == "salaryRangeFacet")
             salaryRangeFacet = '';
+        if (facet == "ageRangeFacet")
+            ageRangeFacet = '';
 
         Search();
     }
@@ -343,7 +353,7 @@
         var facetResultsHTML = '';
         for (var i = 0; i < data.length; i++) {
             var lowRange = parseInt(data[i].Value);
-            var highRange = lowRange + 49999;
+            var highRange = lowRange + 9999;
 
             facetResultsHTML += '<li><a href="javascript:void(0)" onclick="ChooseSalaryRangeFacet(\'' + data[i].Value + '\');">$' + lowRange.toLocaleString() + ' - $' + highRange.toLocaleString() + ' (' + data[i].Count + ')</span></a></li>';
         }
@@ -353,6 +363,23 @@
 
     function ChooseSalaryRangeFacet(facet) {
         salaryRangeFacet = facet;
+        Search();
+    }
+
+    function UpdateAgeRangeFacets(data) {
+        var facetResultsHTML = '';
+        for (var i = 0; i < data.length; i++) {
+            var lowRange = parseInt(data[i].Value);
+            var highRange = lowRange + 4;
+
+            facetResultsHTML += '<li><a href="javascript:void(0)" onclick="ChooseAgeRangeFacet(\'' + data[i].Value + '\');">' + lowRange.toLocaleString() + ' - ' + highRange.toLocaleString() + ' (' + data[i].Count + ')</span></a></li>';
+        }
+
+        $("#age_range_facets").html(facetResultsHTML);
+    }
+
+    function ChooseAgeRangeFacet(facet) {
+        ageRangeFacet = facet;
         Search();
     }
 
@@ -372,10 +399,10 @@
         var imgCounter = 0;
         var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
         ];
-        $("#available-jobs-label").html('Available Jobs <small>(' + data.Count + " jobs)</small>");
+        $("#available-jobs-label").html('Available Nurses <small>(' + data.Count + " nurses)</small>");
         $("#jobs-count").html(data.Count);
 
-        $("#available_jobs_subheader").html(data.Count + ' Available Jobs');
+        $("#available_jobs_subheader").html(data.Count + ' Available Nurses');
 
         for (var i = 0; i < data.Results.length; i++) {
 
@@ -392,20 +419,21 @@
 
             var featuredListing = '';
             if (data.Results[0].Document.tags.length > 0)
-                featuredListing = ' - Featured Job';
+                featuredListing = ' - Featured Nurse';
 
             jobDetailsHTML += '<h6 class="title"><a href="/home/jobdetails?id=' + data.Results[i].Document.id + '">' + data.Results[i].Document.business_title + '</a>&nbsp;' + featuredListing + '</h6>';
             jobDetailsHTML += '<span class="meta">' + data.Results[i].Document.work_location + '</span>';
+            jobDetailsHTML += '<br><span>' + data.Results[i].Document.full_name + '</span>';
 
             jobDetailsHTML += '<p class="description"><b>Salary:</b> $' + data.Results[i].Document.salary_range_from.toLocaleString();
             if (data.Results[i].Document.salary_range_from != data.Results[i].Document.salary_range_to)
                 jobDetailsHTML += ' to $' + data.Results[i].Document.salary_range_to.toLocaleString();
             jobDetailsHTML += ' ' + data.Results[i].Document.salary_frequency + '</p>';
 
-            var jobDesc = data.Results[i].Document.job_description;
+            var jobDesc = data.Results[i].Document.description;
             jobDesc = jobDesc.substring(0, jobDesc.substring(0, 500).lastIndexOf(' ') + 1);
             if (data.Results[i].Highlights != null)
-                jobDesc = data.Results[i].Highlights.job_description
+                jobDesc = data.Results[i].Highlights.description
             jobDetailsHTML += '<p class="description">' + jobDesc + '...&nbsp;&nbsp;&nbsp;<a href="/home/jobdetails?id=' + data.Results[i].Document.id + '" class="read-more">Read More</a></p>';
 
             jobDetailsHTML += '</div>';
@@ -427,7 +455,7 @@
                         <h5 class="widget-title" id="title">Search</h5>
                         <div class="widget-content clearfix">
                             <div id="remote">
-                                <input class="form-control walkthrough-1" type="text" id="q" placeholder="Search Jobs">
+                                <input class="form-control walkthrough-1" type="text" id="q" placeholder="Search Nurses">
 
                                 <select class="form-control pull-left walkthrough-2" id="cmbDistance" onchange="SetMaxDistance();">
                                     <option value="0">Any distance from</option>
@@ -456,6 +484,9 @@
                             <h6>Minimum Salary</h6>
                             <ul class="filter-list" id="salary_range_facets">
                             </ul>
+
+                            <h6>Age</h6>
+                            <ul class="filter-list" id="age_range_facets"></ul>
                         </div>
                     </div>
                 </div>
