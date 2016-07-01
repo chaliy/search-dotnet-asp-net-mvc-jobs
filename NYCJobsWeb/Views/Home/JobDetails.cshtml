@@ -12,7 +12,7 @@
     $(function () {
         LookUp();
     });
-    
+
     function LookUp() {
         // Get center of map to use to score the search results
         var query_string = {};
@@ -43,7 +43,7 @@
             text = text.replace('â€™', "'");
         }
 
-        
+
         return text;
     }
 
@@ -57,7 +57,7 @@
         $("#work_location").html(data.Result.work_location);
         $("#business_title").html(data.Result.business_title);
         $("#full_name").html(data.Result.full_name);
-        
+
 
         var salary = '$' + data.Result.salary_range_from.toLocaleString();
         if (data.Result.salary_range_from != data.Result.salary_range_to)
@@ -69,12 +69,12 @@
         $("#hours_per_shift").html(data.Result.hours_per_shift);
         $("#level").html(data.Result.level);
         $("#posting_type").html(data.Result.posting_type);
-        
+
         $("#description").html(CleanText(data.Result.description));
 
         $("#skills").html(CleanText(data.Result.skills));
         $("#additional_skills").html(CleanText(data.Result.additional_skills));
-       
+
         var postingDate = data.Result.posting_date;
         var date = new Date(parseInt(postingDate.substr(6)));
         $("#dateDiv").html('<div class="date">' + date.getDay() + ' <span>' + monthNames[date.getMonth()] + '</span></div>');
@@ -199,4 +199,3 @@
         </div>
     </div> <!-- end .container -->
 </div> <!-- end #page-content -->
-
