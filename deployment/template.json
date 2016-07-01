@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "server_farm_name": {
@@ -26,13 +26,16 @@
     "resources": [
       {
           "type": "Microsoft.Web/serverfarms",
-          "sku": "Free",
           "name": "[parameters('server_farm_name')]",
           "apiVersion": "2015-08-01",
           "location": "[resourceGroup().location]",
+          "sku": {
+            "name": "S1",
+            "tier": "Standard",
+            "capacity": 1
+          },
           "properties": {
-              "name": "[parameters('server_farm_name')]",
-              "numberOfWorkers": 1
+              "name": "[parameters('server_farm_name')]"
           },
           "dependsOn": []
       },
@@ -49,8 +52,20 @@
               "[resourceId('Microsoft.Web/serverfarms', parameters('server_farm_name'))]"
           ],
           "resources": [
+            {
+              "apiVersion": "2015-08-01",
+              "name": "appsettings",
+              "type": "config",
+              "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites', parameters('site_name'))]"
+              ],
+              "properties": {
+                "JOB_SEARCH_SERVICE_NAME": "[parameters('search_service_name')]",
+                "JOB_SEARCH_API_KEY": "[parameters('search_service_api_key')]"
+              }
+           },
            {
-             "apiVersion": "2015-06-01",
+             "apiVersion": "2015-08-01",
              "name": "web",
              "type": "config",
              "dependsOn": [
@@ -58,29 +73,8 @@
              ],
              "properties": {
                "phpVersion": "off",
-               "netFrameworkVersion": "v4.5",
-               "scmType": "LocalGit",
-               "appSettings": [
-                 {
-                   "Name": "JOB_SEARCH_SERVICE_NAME",
-                   "Value": "[parameters('search_service_name')]"
-                 },
-                 {
-                   "Name": "JOB_SEARCH_API_KEY",
-                   "Value": "[parameters('search_service_api_key')]"
-                 }
-               ]
+               "netFrameworkVersion": "v4.5"
              }
-           },
-           {
-             "apiVersion": "2015-06-01",
-             "name": "GoLang",
-             "type": "siteextensions",
-             "dependsOn": [
-               "[resourceId('Microsoft.Web/Sites', parameters('site_name'))]",
-               "[resourceId('Microsoft.Web/Sites/config', parameters('site_name'), 'web')]"
-             ],
-             "properties": { }
            }
          ]
 

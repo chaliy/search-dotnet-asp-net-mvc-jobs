@@ -16,8 +16,3 @@ variable "region" {
 variable "search_service_api_key" {
   description = "Query key for search service"
 }
-
-variable "search_service_name" {
-  default = "job-search"
-  description = "Search service slug"
-}
