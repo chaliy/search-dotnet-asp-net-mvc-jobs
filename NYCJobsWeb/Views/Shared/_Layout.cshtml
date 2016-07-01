@@ -22,16 +22,6 @@
 <body>
     <div id="wrapper">
         <header id="header">
-            <div class="container header-wrapper">
-                <div class="row">
-                    &nbsp;&nbsp;&nbsp;This is demo website based on generated data.  Jobs listed here should not be considered active.
-                </div> <!-- end .header-wrapper .row -->
-            </div> <!-- end .header-wrapper .container -->
-            <div id="mobile-menu-container" class="container">
-                <div class="login-register"></div>
-                <div class="menu"></div>
-            </div>
-
             <div class="header-nav">
                 <div class="container">
                     <!-- Logo -->
@@ -45,22 +35,13 @@
                     <ul class="nav">
                         <li><a href="/">Home</a></li>
                     </ul>
-                </div> <!-- end .header-nav .container -->
-            </div>  <!-- end .header-nav -->
+                </div>
+            </div>
         </header>
 
         @RenderBody()
 
-        <footer id="footer">
-            <div class="copyright">
-                <div class="container">
-                    <p>This example based on code from <a href="https://github.com/Azure-Samples/search-dotnet-asp-net-mvc-jobs">Azure Search Jobs Website Sample using ASP.NET MVC</a></p>
-                </div>
-            </div>
-        </footer> <!-- end #footer -->
-
-    </div> <!-- end #wrapper -->
-    <!-- Scripts -->
+    </div>
     <script>window.jQuery || document.write('<script src="~/scripts/jquery-1.11.0.min.js"><\/script>')</script>
     <script src="~/scripts/jquery.ba-outside-events.min.js"></script>
     <script src="~/scripts/jquery.responsive-tabs.js"></script>
